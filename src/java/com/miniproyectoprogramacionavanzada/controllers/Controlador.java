@@ -35,13 +35,13 @@ public class Controlador extends HttpServlet {
         // Control de las acciones a realizar según el *.htm
         if(action.equals("/index.htm")){
             // Guardar un atributo en la petición
-            request.setAttribute("saludo", "Bienvenido a JSP");
+            request.setAttribute("saludo", "Bienvenido a Programacion Avanzada");
             // Mostrar index.jsp
             request.getRequestDispatcher(folder+"/index.jsp").
                     forward(request, response);
             
-        }else if(action.equals("/prepareUser.htm")){
-            request.getRequestDispatcher(folder+"/usuario.jsp").
+        }else if(action.equals("/register.htm")){
+            request.getRequestDispatcher(folder+"/register.jsp").
                     forward(request, response);
             
         }else if(action.equals("/nuevoUsuario.htm")){
