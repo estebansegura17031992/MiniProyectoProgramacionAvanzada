@@ -5,8 +5,12 @@
  */
 package com.miniproyectoprogramacionavanzada.controllers;
 
+import com.miniproyectoprogramacionavanzada.models.User;
+import com.miniproyectoprogramacionavanzada.models.UserDataUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +32,9 @@ public class Controlador extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     private final String  folder = "/WEB-INF";
+    private User actualUser=null;
+    UserDataUtil users  = new UserDataUtil(new ArrayList<User>());
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getServletPath();
@@ -45,25 +52,76 @@ public class Controlador extends HttpServlet {
                     forward(request, response);
             
         }else if(action.equals("/nuevoUsuario.htm")){
-            int valida = 0;
             // Obtener campos de la página
-            String user = request.getParameter("user");
-            String pass = request.getParameter("pass");
-            String activo = request.getParameter("activo");
+            String user = request.getParameter("username");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
             
+            users.addUser(new User(user,email,password));
             request.setAttribute("saludo", "registro");
             request.getRequestDispatcher(folder+"/index.jsp").
                     forward(request, response);
             
         } else if(action.equals("/login.htm")){
+           List<User> actualUsers = users.getUsers();
+        
+            String user = request.getParameter("email");
+            String pass = request.getParameter("password");
+            boolean isValid = false;
             
-            String user = request.getParameter("user");
-            String pass = request.getParameter("pass");
-            
-            request.setAttribute("saludo", "login");
-            request.getRequestDispatcher(folder+"/index.jsp").
+            for (int i = 0; i < actualUsers.size(); i++) {
+                System.out.println(actualUsers.get(i).getNombre());
+                if (user.equals(actualUsers.get(i).getEmail())) {
+                    System.out.println(actualUsers.get(i).getPassword());
+                    System.out.println(pass);
+                    if (pass.equalsIgnoreCase(actualUsers.get(i).getPassword())) {
+                        isValid = true;
+                        actualUser = actualUsers.get(i);
+                    }
+                }
+            }
+            System.out.println(isValid);
+            if(isValid == true){
+                request.getRequestDispatcher(folder+"/authentication.jsp")
+                                .forward(request,response);
+                
+            } else {
+                request.setAttribute("saludo", "login");
+                request.getRequestDispatcher(folder+"/index.jsp").
                     forward(request, response);
-        }else{
+
+            }
+        } else if(action.equals("/user.htm")){
+            request.setAttribute("user", actualUser);
+            request.getRequestDispatcher(folder+"/user.jsp")
+                            .forward(request,response);
+        } else if(action.equals("/log_out.htm")){
+            actualUser = null;
+            request.getRequestDispatcher(folder+"/logOut.jsp")
+                            .forward(request,response);
+        } else if(action.equals("/edit.htm")){
+            request.setAttribute("user", actualUser);
+            
+            request.getRequestDispatcher(folder+"/edit.jsp")
+                    .forward(request, response);
+        }else if(action.equals("/editarUsuario.htm")){
+            request.setAttribute("user", actualUser);
+            
+            // Obtener campos de la página
+            String user = request.getParameter("username");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            
+            actualUser.setNombre(user);
+            actualUser.setEmail(email);
+            actualUser.setPassword(password);
+            
+            users.saveUserByEmail(new User(user,email,password));
+            
+            request.setAttribute("saludo", "editar");
+            request.getRequestDispatcher(folder+"/editarUsuario.jsp").
+                    forward(request, response);
+        } else{
             request.getRequestDispatcher(folder+"/error.jsp").
                     forward(request, response);
         }

@@ -17,8 +17,8 @@ $(document).ready(function(){
      $("#alertLogin").hide();
     
  } else if(registroCompleto=="login"){
-     $("#alertRegistro").show();
-     $("#alertFail").hide();
+     $("#alertRegistro").hide();
+     $("#alertFail").show();
      $("#alertLogin").hide();
  }else {
      $(".alert").alert('close')
