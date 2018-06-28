@@ -51,32 +51,18 @@ public class Controlador extends HttpServlet {
             String pass = request.getParameter("pass");
             String activo = request.getParameter("activo");
             
-            // Validación
-            if(user== null || user.equals("")){
-                request.setAttribute("errorUser", "Campo requerido");
-                valida++;
-                
-            }
-            if(pass==null || pass.equals("")){
-                request.setAttribute("errorPass", "Campo requerido");
-                valida++;
-                
-            }
-            if(valida == 0){// Todo OK
-                request.setAttribute("mensaje", "Usuario Creado correctamente");
-                request.setAttribute("user", "");
-                request.setAttribute("pass", "");
-                request.setAttribute("activo", "");
-                
-            }else{// ERROR
-                request.setAttribute("user", user);
-                request.setAttribute("pass", "");
-                request.setAttribute("activo", activo);
-            }
-            
-            request.getRequestDispatcher(folder+"/usuario.jsp").
+            request.setAttribute("saludo", "registro");
+            request.getRequestDispatcher(folder+"/index.jsp").
                     forward(request, response);
             
+        } else if(action.equals("/login.htm")){
+            
+            String user = request.getParameter("user");
+            String pass = request.getParameter("pass");
+            
+            request.setAttribute("saludo", "login");
+            request.getRequestDispatcher(folder+"/index.jsp").
+                    forward(request, response);
         }else{
             request.getRequestDispatcher(folder+"/error.jsp").
                     forward(request, response);
