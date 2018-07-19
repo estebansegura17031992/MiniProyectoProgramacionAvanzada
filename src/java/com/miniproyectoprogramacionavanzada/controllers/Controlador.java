@@ -121,7 +121,10 @@ public class Controlador extends HttpServlet {
             request.setAttribute("saludo", "editar");
             request.getRequestDispatcher(folder+"/editarUsuario.jsp").
                     forward(request, response);
-        } else{
+        } else if(action.equals("/allUsers.htm")){
+            request.getRequestDispatcher(folder+"/allUsers.jsp").
+                    forward(request, response);
+        }else{
             request.getRequestDispatcher(folder+"/error.jsp").
                     forward(request, response);
         }

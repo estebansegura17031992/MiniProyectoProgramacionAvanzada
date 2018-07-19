@@ -10,6 +10,7 @@ package com.miniproyectoprogramacionavanzada.models;
  * @author esteban
  */
 public class User {
+    private String idUser;
     private String nombre;
     private String email;
     private String password;
@@ -18,6 +19,21 @@ public class User {
         this.nombre = nombre;
         this.email = email;
         this.password = password;
+    }
+    
+    public User(String idUser, String nombre, String email, String password) {
+        this.idUser = idUser;
+        this.nombre = nombre;
+        this.email = email;
+        this.password = password;
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 
     public String getNombre() {
