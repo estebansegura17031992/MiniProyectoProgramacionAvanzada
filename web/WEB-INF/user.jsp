@@ -29,6 +29,7 @@
               <ul class="nav navbar-nav">
                 <li><a href="user.htm">Home</a></li>
                 <li><a href="edit.htm">Edit</a></li>
+                <li><a href="allUsers.htm">Users</a></li>
                 <li><a href="log_out.htm">Log Out</a></li>
               </ul>
             </div>
