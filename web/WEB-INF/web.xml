@@ -4,9 +4,17 @@
         <servlet-name>Controller</servlet-name>
         <servlet-class>com.miniproyectoprogramacionavanzada.controllers.Controlador</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AjaxControlador</servlet-name>
+        <servlet-class>com.miniproyectoprogramacionavanzada.controllers.AjaxControlador</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
         <url-pattern>*.htm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxControlador</servlet-name>
+        <url-pattern>*.json</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

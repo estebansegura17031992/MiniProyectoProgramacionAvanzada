@@ -54,6 +54,7 @@ public class UserDataUtil {
     }
 
     public List<User> getUsers() {
+        List<User> users = new ArrayList<User>();
         //Cargando la conexion
         conexion = new MySqlConnection();
         Connection conn;
@@ -72,13 +73,14 @@ public class UserDataUtil {
             
             //Se recorren los datos obtenidos del SQL 
             while(rs.next()){
-                User user = new User(rs.getString(2),rs.getString(3),rs.getString(4));
+                User user = new User(rs.getString(1), rs.getString(2),rs.getString(3),rs.getString(4));
                 users.add(user);
             }
             
             //Se cierra la conexion
             conn.close();
             st.close();
+            rs.close();
         } catch(SQLException e){
             System.out.println("Error getUsers: "+e.getMessage());
         }
@@ -144,5 +146,40 @@ public class UserDataUtil {
         return confirmar;
     }
     
-    
+    public User getUserByID(String idUser){
+        
+        //#1 Cargando la conexion
+        conexion = new MySqlConnection();
+        Connection conn;
+        conn = conexion.getConnection();
+        
+        Statement st;
+        ResultSet rs;
+        
+        //Creamos el SQL
+        String sql = "SELECT * FROM users WHERE idUser = "+idUser;
+        
+        //Se ejecuta la sentencia SQL
+        try{
+            st = (Statement) conn.createStatement();
+            rs = st.executeQuery(sql);
+            
+            //Se recorren los datos obtenidos del SQL 
+            User user = null;
+            while (rs.next())
+                user = new User(rs.getString(1), rs.getString(2),rs.getString(3),rs.getString(4));
+              
+            
+            //Se cierra la conexion
+            conn.close();
+            st.close();
+            rs.close();
+            
+            return user;
+        } catch(SQLException e){
+            System.out.println("Error getUser: "+e.getMessage());
+        }
+        
+        return null;
+    }
 }
