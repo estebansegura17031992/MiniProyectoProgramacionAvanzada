@@ -12,6 +12,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -64,7 +68,7 @@ public class UserDataUtil {
         ResultSet rs;
         
         //Creamos el SQL
-        String sql = "SELECT * FROM users";
+        String sql = "SELECT * FROM users ORDER BY idUser";
         
         //Se ejecuta la sentencia SQL
         try{

@@ -5,16 +5,33 @@
  */
 package com.miniproyectoprogramacionavanzada.models;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author esteban
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class User {
+     @XmlElement
     private String idUser;
+     
+    @XmlElement
     private String nombre;
+    
+    @XmlElement
     private String email;
+    
+    @XmlElement
     private String password;
 
+    public User(){
+        
+    }
     public User(String nombre, String email, String password) {
         this.nombre = nombre;
         this.email = email;

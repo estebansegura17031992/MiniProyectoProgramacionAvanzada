@@ -8,6 +8,14 @@
         <servlet-name>AjaxControlador</servlet-name>
         <servlet-class>com.miniproyectoprogramacionavanzada.controllers.AjaxControlador</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RestXML</servlet-name>
+        <servlet-class>com.miniproyectoprogramacionavanzada.controllers.RestXML</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RestJSON</servlet-name>
+        <servlet-class>com.miniproyectoprogramacionavanzada.controllers.RestJSON</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>AjaxControlador</servlet-name>
         <url-pattern>*.json</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RestXML</servlet-name>
+        <url-pattern>/RestXML</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RestJSON</servlet-name>
+        <url-pattern>/RestJSON</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
