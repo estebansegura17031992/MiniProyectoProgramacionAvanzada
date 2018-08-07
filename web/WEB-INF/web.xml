@@ -16,6 +16,14 @@
         <servlet-name>RestJSON</servlet-name>
         <servlet-class>com.miniproyectoprogramacionavanzada.controllers.RestJSON</servlet-class>
     </servlet>
+    <servlet> 
+      <servlet-name>Jersey RESTful Application</servlet-name> 
+      <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class> 
+      <init-param> 
+         <param-name>jersey.config.server.provider.packages</param-name> 
+         <param-value>com.miniproyectoprogramacionavanzada.models</param-value> 
+      </init-param> 
+   </servlet> 
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
         <url-pattern>*.htm</url-pattern>
@@ -31,6 +39,10 @@
     <servlet-mapping>
         <servlet-name>RestJSON</servlet-name>
         <url-pattern>/RestJSON</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Jersey RESTful Application</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
