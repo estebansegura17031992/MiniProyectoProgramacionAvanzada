@@ -1,35 +1,57 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.miniproyectoprogramacionavanzada.models;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+@Path("/UserService")
 public class Users {
     UserDataUtil users  = new UserDataUtil(new ArrayList<User>());
-    // A la etiqueta que identifique el inicio y fin de cada user en el XML
-    @XmlElement(name = "user")
+    
+    private static final String SUCCESS_RESULT="<result>success</result>";
+    
     private List<User> userList;
     
     public Users() {
         userList = new ArrayList();
     }
  
+    @GET
+    @Path("users")
+    @Produces(MediaType.APPLICATION_XML)
     public List<User> getUsersList() {
+        userList = users.getUsers();
         return userList;
     }
  
-    public void setUsersList(List<User> userList) {
-        this.userList = userList;
+    @GET
+    @Path("/users/{userid}")
+    @Produces(MediaType.APPLICATION_XML)
+    public User getUser(@PathParam("userid") int userid){
+       return users.getUserByID(""+userid);
+    }
+    
+    @POST
+    @Path("/users")
+    @Produces(MediaType.APPLICATION_XML)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public String createUser(@FormParam("id") String id,
+       @FormParam("name") String name,
+       @FormParam("profession") String profession,
+       @Context HttpServletResponse servletResponse) throws IOException{
+       User user = new User(id, name, profession);
+       users.saveUserByEmail(user);
+       return SUCCESS_RESULT;
     }
 }
 

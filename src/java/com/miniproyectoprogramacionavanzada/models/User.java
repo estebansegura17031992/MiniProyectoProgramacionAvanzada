@@ -14,19 +14,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author esteban
  */
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement (name="user")
 public class User {
-     @XmlElement
+    
     private String idUser;
-     
-    @XmlElement
     private String nombre;
-    
-    @XmlElement
     private String email;
-    
-    @XmlElement
     private String password;
 
     public User(){
@@ -45,18 +38,34 @@ public class User {
         this.password = password;
     }
 
-    public String getIdUser() {
-        return idUser;
-    }
-
+    @XmlElement
     public void setIdUser(String idUser) {
         this.idUser = idUser;
     }
 
+    @XmlElement
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    @XmlElement
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @XmlElement
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
     public String getNombre() {
         return nombre;
     }
 
+    public String getIdUser() {
+        return idUser;
+    }
+    
     public String getEmail() {
         return email;
     }
@@ -64,19 +73,4 @@ public class User {
     public String getPassword() {
         return password;
     }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-            
-           
-            
 }
